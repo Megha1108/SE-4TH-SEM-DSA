@@ -95,9 +95,9 @@ int main()
         switch (choice)
         {
         case 1:
-            gt.create_tree();
+            b.create_tree();
         case 2:
-            gt.display(root);
+            b.display(root);
             break;
         case 3:
             cout << "Thanks for using this program!!!";
