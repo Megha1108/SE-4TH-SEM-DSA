@@ -7,86 +7,81 @@ of your method*/
 #include <string.h>
 using namespace std;
 
-struct node // Node Declaration
+struct node
 {
-    string label;
-    //char label[10];
-    int ch_count;
+    char caption[10];
+    int count;
     struct node *child[10];
-} * root;
-
-class book // Class Declaration
+} *root;
+class Book
 {
 public:
-    void create_tree();
+    void create();
     void display(node *r1);
 
-    book()
+    Book()
     {
         root = NULL;
     }
 };
 
-void book::create_tree()
+void Book::create()
 {
-    int tbooks, tchapters, i, j, k;
+    int totle_chapters, i, j, k;
     root = new node;
-    cout << "Enter name of book : ";
-    cin.get();
-    getline(cin, root->label);
-    cout << "Enter number of chapters in book : ";
-    cin >> tchapters;
-    root->ch_count = tchapters;
-    for (i = 0; i < tchapters; i++)
+    cout << "Enter name of book: ";
+    cin >> root->caption;
+    cout << "Enter no. of chapters in book: ";
+    cin >> totle_chapters;
+    root->count = totle_chapters;
+    for (i = 0; i < totle_chapters; i++)
     {
         root->child[i] = new node;
-        cout << "Enter the name of Chapter " << i + 1 << " : ";
-        cin.get();
-        getline(cin, root->child[i]->label);
-        cout << "Enter number of sections in Chapter : " << root->child[i]->label << " : ";
-        cin >> root->child[i]->ch_count;
-        for (j = 0; j < root->child[i]->ch_count; j++)
+        cout << "Enter Chapter name: ";
+        cin >> root->child[i]->caption;
+        cout << "Enter no. of sections in  Chapter " << root->child[i]->caption<<":";
+        cin >> root->child[i]->count;
+        for (j = 0; j < root->child[i]->count; j++)
         {
             root->child[i]->child[j] = new node;
-            cout << "Enter Name of Section " << j + 1 << " : ";
-            cin.get();
-            getline(cin, root->child[i]->child[j]->label);
+            cout << "Enter Section " << j + 1<<":" ;
+            cin >> root->child[i]->child[j]->caption;
         }
     }
 }
 
-void book::display(node *r1)
+void Book::display(node *r1)
 {
     int i, j, k, tchapters;
     if (r1 != NULL)
     {
         cout << "\n-----Book Hierarchy---";
-        cout << "\n Book title : " << r1->label;
-        tchapters = r1->ch_count;
+
+        cout << "\n Book title : " << r1->caption;
+        tchapters = r1->count;
         for (i = 0; i < tchapters; i++)
         {
 
-            cout << "\nChapter " << i + 1;
-            cout << " : " << r1->child[i]->label;
-            cout << "\nSections : ";
-            for (j = 0; j < r1->child[i]->ch_count; j++)
+            cout << "\n  Chapter : " << i + 1;
+            cout << " " << r1->child[i]->caption;
+            cout << "\n Sections :  ";
+            for (j = 0; j < r1->child[i]->count; j++)
             {
-                cout << "\n"<< r1->child[i]->child[j]->label;
+
+                cout << "\n  " << r1->child[i]->child[j]->caption;
             }
         }
     }
-    cout << endl;
 }
 
 int main()
 {
     int choice;
-    book b;
+    Book b;
     while (1)
     {
-        cout << "-----------------" << endl;
+
         cout << "Book Tree Creation" << endl;
-        cout << "-----------------" << endl;
         cout << "1.Create" << endl;
         cout << "2.Display" << endl;
         cout << "3.Quit" << endl;
@@ -95,16 +90,14 @@ int main()
         switch (choice)
         {
         case 1:
-            b.create_tree();
+            b.create();
         case 2:
             b.display(root);
             break;
         case 3:
-            cout << "Thanks for using this program!!!";
             exit(1);
         default:
-            cout << "Wrong choice!!!" << endl;
+            cout << "Wrong choice" << endl;
         }
     }
-    return 0;
 }
